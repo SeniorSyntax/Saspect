@@ -21,5 +21,5 @@ jobs:
         run: dotnet build --no-restore --configuration Release "-p:Version=1.0.${{ github.run_number }}" "-p:PackageVersion=1.0.${{ github.run_number }}"
       - name: Test
         run: dotnet test --no-build --configuration Release --verbosity normal
-#      - name: Push to nuget.org
-#        run: dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+      - name: Push to nuget.org
+        run: dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
