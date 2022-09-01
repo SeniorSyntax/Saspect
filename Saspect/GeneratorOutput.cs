@@ -27,16 +27,19 @@ internal class GeneratorOutput
 
 	private static void generate(ImmutableArray<ClassDeclarationSyntax> classes, Compilation compilation, SourceProductionContext context, StringBuilder log)
 	{
-		classes.ForEach(clasz =>
+		foreach (var clasz in classes)
 		{
+			if (context.CancellationToken.IsCancellationRequested)
+				break;
+			
 			if (SyntaxExtensions.ClassIsAbstract(clasz, log))
-				return;
+				continue;
 
 			var model = compilation.GetSemanticModel(clasz.SyntaxTree);
 			var classSymbol = model.GetDeclaredSymbol(clasz);
 
 			if (!SyntaxExtensions.ClassWithAspectAttribute(clasz, classSymbol, log))
-				return;
+				continue;
 
 			var className = clasz.Identifier.ToString();
 			log.AppendLine("class: " + className);
@@ -71,7 +74,7 @@ namespace {namespaz}
 			{
 				log.AppendLine("Boom " + e);
 			}
-		});
+		}
 	}
 
 	private static string generateClass(

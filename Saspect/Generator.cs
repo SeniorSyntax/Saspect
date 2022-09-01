@@ -21,6 +21,8 @@ public class Generator : IIncrementalGenerator
 		context.RegisterSourceOutput(valueProviderWithCompilation,
 			(outputContext, input) =>
 			{
+				if (outputContext.CancellationToken.IsCancellationRequested)
+					return;
 				GeneratorOutput.Generate(input, outputContext, log);
 				GeneratorLog.Output(log, outputContext);
 			});
