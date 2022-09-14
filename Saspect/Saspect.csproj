@@ -4,6 +4,10 @@
     <LangVersion>10</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageVersion>1.0.0.0</PackageVersion>
+    <Description>AOP (Aspect Oriented Programming) using dotnet source generator.</Description>
+    <PackageProjectUrl>https://github.com/Teleopti/Saspect</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>aop, aspects, source generator</PackageTags>
   </PropertyGroup>
   <ItemGroup>
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
