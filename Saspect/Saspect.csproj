@@ -7,7 +7,7 @@
     <Description>AOP (Aspect Oriented Programming) using dotnet source generator.</Description>
     <PackageProjectUrl>https://github.com/Teleopti/Saspect</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>aop, aspects, source generator</PackageTags>
+    <PackageTags>AOP;Aspects;SourceGenerator</PackageTags>
   </PropertyGroup>
   <ItemGroup>
     <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
