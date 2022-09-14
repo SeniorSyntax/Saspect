@@ -4,6 +4,10 @@
     <LangVersion>10</LangVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageVersion>1.0.0.0</PackageVersion>
+    <Description>Autofac integration for Saspect: AOP (Aspect Oriented Programming) using dotnet source generator.</Description>
+    <PackageProjectUrl>https://github.com/Teleopti/Saspect</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>AOP;Aspects;SourceGenerator</PackageTags>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Saspect\Saspect.csproj" />
