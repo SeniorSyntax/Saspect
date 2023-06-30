@@ -13,6 +13,6 @@
     <ProjectReference Include="..\Saspect\Saspect.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="7.0.1" />
+    <PackageReference Include="Autofac" Version="[6.5,)" PrivateAssets="All" />
   </ItemGroup>
 </Project>
