@@ -58,7 +58,7 @@ internal class GeneratorOutput
 namespace {namespaz}
 {{
 ");
-				var generatedFullName = generateClass(namespaz, clasz, compilation, code);
+				var generatedFullName = generateClass(namespaz, clasz, compilation, code, log);
 				code.Append($@"
 }}
 ");
@@ -81,7 +81,8 @@ namespace {namespaz}
 		string namespaz,
 		ClassDeclarationSyntax clasz,
 		Compilation compilation,
-		StringBuilder code)
+		StringBuilder code,
+		StringBuilder log)
 	{
 		var className = clasz.Identifier.ToString();
 		var aspectedClassName = $"{className}Aspected";
@@ -105,7 +106,7 @@ namespace {namespaz}
 		private Saspect.AspectInterceptor _interceptor;
 ");
 
-		generateCtor(code, clasz, aspectedClassName);
+		generateCtor(code, clasz, aspectedClassName, log);
 
 		code.Append($@"
 		{{
@@ -129,8 +130,10 @@ namespace {namespaz}
 		return $"{namespaz}.{aspectedClassName}";
 	}
 
-	private static void generateCtor(StringBuilder code, ClassDeclarationSyntax clasz, string className)
+	private static void generateCtor(StringBuilder code, ClassDeclarationSyntax clasz, string className, StringBuilder log)
 	{
+		log.AppendLine("generateCtor");
+		
 		code.Append($@"
 		public {className}");
 
@@ -142,19 +145,23 @@ namespace {namespaz}
 			return;
 		}
 
+		var parameterz = ctor.ParameterList;
+		
 		var parameters = string.Join(", ",
-			ctor.ParameterList.Parameters
+			parameterz.Parameters
 				.Select(x => x.GetText().ToString().Trim())
 				.ToArray()
 		);
 
 		var arguments = string.Join(", ",
-			ctor.ParameterList.Parameters
+			parameterz.Parameters
 				.Select(x => x.Identifier.ToString())
 				.ToArray()
 		);
 
 		code.Append($"(Saspect.AspectInterceptor interceptor, {parameters}) : base({arguments})");
+		
+		log.AppendLine("/generateCtor");
 	}
 
 	private static void generateMethod(StringBuilder code, MethodDeclarationSyntax method, IMethodSymbol methodSymbol)
