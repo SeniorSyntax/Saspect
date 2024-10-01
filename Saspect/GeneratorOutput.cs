@@ -31,7 +31,7 @@ internal class GeneratorOutput
 		{
 			if (context.CancellationToken.IsCancellationRequested)
 				break;
-			
+
 			if (SyntaxExtensions.ClassIsAbstract(clasz, log))
 				continue;
 
@@ -133,7 +133,7 @@ namespace {namespaz}
 	private static void generateCtor(StringBuilder code, ClassDeclarationSyntax clasz, string className, StringBuilder log)
 	{
 		log.AppendLine("generateCtor");
-		
+
 		code.Append($@"
 		public {className}");
 
@@ -146,7 +146,7 @@ namespace {namespaz}
 		}
 
 		var parameterz = ctor.ParameterList;
-		
+
 		var parameters = string.Join(", ",
 			parameterz.Parameters
 				.Select(x => x.GetText().ToString().Trim())
@@ -160,7 +160,7 @@ namespace {namespaz}
 		);
 
 		code.Append($"(Saspect.AspectInterceptor interceptor, {parameters}) : base({arguments})");
-		
+
 		log.AppendLine("/generateCtor");
 	}
 
