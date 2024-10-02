@@ -137,15 +137,16 @@ namespace {namespaz}
 		code.Append($@"
 		public {className}");
 
-		var ctor = clasz.Members.OfType<ConstructorDeclarationSyntax>().FirstOrDefault();
+		var firstCtor = clasz.Members.OfType<ConstructorDeclarationSyntax>().FirstOrDefault();
+		var primaryCtor = clasz.ParameterList;
 
-		if (ctor == null)
+		if (firstCtor == null && primaryCtor == null)
 		{
 			code.Append($"(Saspect.AspectInterceptor interceptor)");
 			return;
 		}
 
-		var parameterz = ctor.ParameterList;
+		var parameterz = firstCtor?.ParameterList ?? primaryCtor;
 
 		var parameters = string.Join(", ",
 			parameterz.Parameters

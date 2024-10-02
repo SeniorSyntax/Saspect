@@ -1,10 +1,10 @@
 ﻿// avoid adding System usings here... yeah right.
 
-using System;
 using Autofac;
 using Autofac.Builder;
 using NUnit.Framework;
 using Saspect.Autofac;
+using Saspect.Test.Samples;
 using SharpTestsEx;
 using Sinjector;
 
@@ -17,9 +17,11 @@ public class GeneratorTest : IContainerSetup, IContainerRegistrationSetup
 	{
 		context.AddService<AspectInterceptor>();
 
+		context.AddService<NestedClassSample.NestedClass>();
 		context.AddService<CtorSample>();
+		context.AddService<PrimaryCtorSample>();
 		context.AddService<DependencySample>();
-		context.AddService<Aspect1Attribute.Aspect1>();
+		context.AddService<Aspect1>();
 	}
 
 	public void ContainerRegistrationSetup<TLimit, TConcreteReflectionActivatorData, TRegistrationStyle>(IRegistrationBuilder<TLimit, TConcreteReflectionActivatorData, TRegistrationStyle> registration) where TConcreteReflectionActivatorData : ConcreteReflectionActivatorData
@@ -30,56 +32,23 @@ public class GeneratorTest : IContainerSetup, IContainerRegistrationSetup
 	public IComponentContext Container;
 
 	[Test]
+	public void ShouldManageNestedClass()
+	{
+		Container.Resolve<NestedClassSample.NestedClass>()
+			.Should().Be.OfType<NestedClassSample_NestedClassAspected>();
+	}
+
+	[Test]
 	public void ShouldGenerateCtor()
 	{
-		Container.Resolve<CtorSample>().AspectedMethod();
+		Container.Resolve<CtorSample>()
+			.Should().Be.OfType<CtorSampleAspected>();
 	}
-	
-	// [Test]
-	// public void ShouldGeneratePrimaryCtor()
-	// {
-	// 	Container.Resolve<PrimaryCtorSample>().AspectedMethod();
-	// }
 
-	public class CtorSample
+	[Test]
+	public void ShouldGeneratePrimaryCtor()
 	{
-		public CtorSample(DependencySample injected)
-		{
-		}
-
-		[Aspect1]
-		public virtual void AspectedMethod()
-		{
-		}
+		Container.Resolve<PrimaryCtorSample>()
+			.Should().Be.OfType<PrimaryCtorSampleAspected>();
 	}
-	//
-	// public class PrimaryCtorSample(DependencySample injected)
-	// {
-	// 	[Aspect1]
-	// 	public virtual void AspectedMethod()
-	// 	{
-	// 	}
-	// }
-
-	public class Aspect1Attribute : AspectAttribute
-	{
-		public Aspect1Attribute() : base(typeof(Aspect1))
-		{
-		}
-
-		public class Aspect1 : IAspect
-		{
-			public void OnBeforeInvocation(InvocationInfo invocation)
-			{
-			}
-
-			public void OnAfterInvocation(Exception exception, InvocationInfo invocation)
-			{
-			}
-		}
-	}
-}
-
-public class DependencySample
-{
 }
