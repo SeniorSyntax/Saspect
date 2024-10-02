@@ -17,6 +17,8 @@ public class GeneratorTest : IContainerSetup, IContainerRegistrationSetup
 	{
 		context.AddService<AspectInterceptor>();
 
+		context.AddService<Sample>();
+		context.AddService<NonAspectedSample>();
 		context.AddService<NestedClassSample.NestedClass>();
 		context.AddService<CtorSample>();
 		context.AddService<PrimaryCtorSample>();
@@ -32,12 +34,26 @@ public class GeneratorTest : IContainerSetup, IContainerRegistrationSetup
 	public IComponentContext Container;
 
 	[Test]
+	public void ShouldGenerateProxy()
+	{
+		Container.Resolve<Sample>()
+			.Should().Be.OfType<SampleAspected>();
+	}
+
+	[Test]
 	public void ShouldManageNestedClass()
 	{
 		Container.Resolve<NestedClassSample.NestedClass>()
 			.Should().Be.OfType<NestedClassSample_NestedClassAspected>();
 	}
 
+	[Test]
+	public void ShouldNotGenerateProxyForNonAspected()
+	{
+		Container.Resolve<NonAspectedSample>()
+			.Should().Be.OfType<NonAspectedSample>();
+	}
+	
 	[Test]
 	public void ShouldGenerateCtor()
 	{
