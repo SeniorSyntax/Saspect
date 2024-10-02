@@ -1,8 +1,3 @@
 namespace Saspect.Test.Samples;
 
-public class Aspect1Attribute : AspectAttribute
-{
-	public Aspect1Attribute() : base(typeof(Aspect1))
-	{
-	}
-}
+public class Aspect1Attribute() : AspectAttribute(typeof(Aspect1));
