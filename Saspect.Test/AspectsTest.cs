@@ -22,9 +22,9 @@ public class AspectsTest : IContainerSetup, IContainerRegistrationSetup
 		context.AddService<Aspect3>();
 	}
 
-	public void ContainerRegistrationSetup<TLimit, TConcreteReflectionActivatorData, TRegistrationStyle>(IRegistrationBuilder<TLimit, TConcreteReflectionActivatorData, TRegistrationStyle> registration) where TConcreteReflectionActivatorData : ConcreteReflectionActivatorData
+	public void RegistrationCallback(object registration)
 	{
-		registration.ApplyAspects();
+		((IRegistrationBuilder<object, ConcreteReflectionActivatorData, object>)registration).ApplyAspects();
 	}
 
 	public ISinjectorTestContext Context;

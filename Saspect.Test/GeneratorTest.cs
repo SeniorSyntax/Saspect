@@ -26,9 +26,9 @@ public class GeneratorTest : IContainerSetup, IContainerRegistrationSetup
 		context.AddService<Aspect1>();
 	}
 
-	public void ContainerRegistrationSetup<TLimit, TConcreteReflectionActivatorData, TRegistrationStyle>(IRegistrationBuilder<TLimit, TConcreteReflectionActivatorData, TRegistrationStyle> registration) where TConcreteReflectionActivatorData : ConcreteReflectionActivatorData
+	public void RegistrationCallback(object registration)
 	{
-		registration.ApplyAspects();
+		((IRegistrationBuilder<object, ConcreteReflectionActivatorData, object>)registration).ApplyAspects();
 	}
 
 	public IComponentContext Container;
