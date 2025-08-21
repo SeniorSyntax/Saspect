@@ -6,10 +6,11 @@ using Saspect.Autofac;
 using Saspect.Test.Samples;
 using SharpTestsEx;
 using Sinjector;
+using Sinjector.Autofac;
 
 namespace Saspect.Test;
 
-[SinjectorFixture]
+[AutofacSinjectorFixture]
 public class AspectsTest : IContainerSetup, IContainerRegistrationSetup
 {
 	public void ContainerSetup(IContainerSetupContext context)
