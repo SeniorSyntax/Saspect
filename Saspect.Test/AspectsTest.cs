@@ -12,7 +12,7 @@ namespace Saspect.Test;
 [SinjectorFixture]
 public class AspectsTest : IContainerSetup, IContainerRegistrationSetup
 {
-	public void ContainerSetup(IContainerSetupContext context)
+	public void ContainerSetup(IExtend context)
 	{
 		context.AddService<AspectInterceptor>();
 
