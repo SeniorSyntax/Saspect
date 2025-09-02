@@ -11,17 +11,17 @@ using Sinjector;
 namespace Saspect.Test;
 
 [SinjectorFixture]
-public class GeneratorTest : IContainerSetup, IContainerRegistrationSetup
+public class GeneratorTest : IContainerSetup
 {
 	public void ContainerSetup(IExtend context)
 	{
 		context.AddService<AspectInterceptor>();
 
-		context.AddService<Sample>();
+		context.AddServiceWithAspects<Sample>();
 		context.AddService<NonAspectedSample>();
-		context.AddService<NestedClassSample.NestedClass>();
-		context.AddService<CtorSample>();
-		context.AddService<PrimaryCtorSample>();
+		context.AddServiceWithAspects<NestedClassSample.NestedClass>();
+		context.AddServiceWithAspects<CtorSample>();
+		context.AddServiceWithAspects<PrimaryCtorSample>();
 		context.AddService<DependencySample>();
 		context.AddService<Aspect1>();
 	}

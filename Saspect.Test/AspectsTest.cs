@@ -1,8 +1,6 @@
 ﻿// avoid adding System usings here... yeah right.
 
-using Autofac.Builder;
 using NUnit.Framework;
-using Saspect.Autofac;
 using Saspect.Test.Samples;
 using SharpTestsEx;
 using Sinjector;
@@ -10,21 +8,16 @@ using Sinjector;
 namespace Saspect.Test;
 
 [SinjectorFixture]
-public class AspectsTest : IContainerSetup, IContainerRegistrationSetup
+public class AspectsTest : IContainerSetup
 {
 	public void ContainerSetup(IExtend context)
 	{
 		context.AddService<AspectInterceptor>();
 
-		context.AddService<Sample>();
+		context.AddServiceWithAspects<Sample>();
 		context.AddService<Aspect1>();
 		context.AddService<Aspect2>();
 		context.AddService<Aspect3>();
-	}
-
-	public void RegistrationCallback(object registration)
-	{
-		((IRegistrationBuilder<object, ConcreteReflectionActivatorData, object>)registration).ApplyAspects();
 	}
 
 	public ISinjectorTestContext Context;
