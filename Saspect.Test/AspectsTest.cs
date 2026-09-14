@@ -2,7 +2,7 @@
 
 using NUnit.Framework;
 using Saspect.Test.Samples;
-using SharpTestsEx;
+using Shouldly;
 using Sinjector;
 
 namespace Saspect.Test;
@@ -31,7 +31,7 @@ public class AspectsTest : IContainerSetup
 	{
 		Target.AspectedMethod();
 
-		Aspect1.BeforeInvoked.Should().Be.True();
+		Aspect1.BeforeInvoked.ShouldBeTrue();
 	}
 
 	[Test]
@@ -39,7 +39,7 @@ public class AspectsTest : IContainerSetup
 	{
 		Target.AspectedMethod();
 
-		Aspect1.AfterInvoked.Should().Be.True();
+		Aspect1.AfterInvoked.ShouldBeTrue();
 	}
 
 	[Test]
@@ -47,7 +47,7 @@ public class AspectsTest : IContainerSetup
 	{
 		Target.AspectedMethod();
 
-		Target.Invoked.Should().Be.True();
+		Target.Invoked.ShouldBeTrue();
 	}
 
 	[Test]
@@ -61,8 +61,8 @@ public class AspectsTest : IContainerSetup
 	{
 		Target.AspectedMethod();
 
-		Aspect1.BeforeInvoked.Should().Be.True();
-		Aspect1.AfterInvoked.Should().Be.True();
+		Aspect1.BeforeInvoked.ShouldBeTrue();
+		Aspect1.AfterInvoked.ShouldBeTrue();
 	}
 
 	[Test]
@@ -79,7 +79,7 @@ public class AspectsTest : IContainerSetup
 		Target.FailsWith = new System.ArithmeticException();
 
 		Assert.Throws<System.ArithmeticException>(Target.AspectedMethod);
-		Aspect1.AfterInvoked.Should().Be.True();
+		Aspect1.AfterInvoked.ShouldBeTrue();
 	}
 
 	[Test]
@@ -90,7 +90,7 @@ public class AspectsTest : IContainerSetup
 
 		Assert.Throws<System.ArithmeticException>(Target.AspectedMethod);
 
-		Aspect1.AfterInvokedWith.Should().Be.SameInstanceAs(expected);
+		Aspect1.AfterInvokedWith.ShouldBeSameAs(expected);
 	}
 
 	[Test]
@@ -99,8 +99,8 @@ public class AspectsTest : IContainerSetup
 		Aspect1.AfterFailsWith = new System.ArithmeticException();
 
 		Assert.Throws<System.ArithmeticException>(Target.AspectedMethod);
-		Aspect2.AfterInvoked.Should().Be.True();
-		Aspect3.AfterInvoked.Should().Be.True();
+		Aspect2.AfterInvoked.ShouldBeTrue();
+		Aspect3.AfterInvoked.ShouldBeTrue();
 	}
 
 	[Test]
@@ -109,8 +109,8 @@ public class AspectsTest : IContainerSetup
 		Aspect3.BeforeFailsWith = new System.ArithmeticException();
 
 		Assert.Throws<System.ArithmeticException>(Target.AspectedMethod);
-		Aspect1.AfterInvoked.Should().Be.True();
-		Aspect2.AfterInvoked.Should().Be.True();
+		Aspect1.AfterInvoked.ShouldBeTrue();
+		Aspect2.AfterInvoked.ShouldBeTrue();
 	}
 
 	[Test]
@@ -120,8 +120,8 @@ public class AspectsTest : IContainerSetup
 
 		Assert.Throws<System.ArithmeticException>(Target.AspectedMethod);
 
-		Aspect2.AfterInvoked.Should().Be.True();
-		Aspect3.AfterInvoked.Should().Be.False();
+		Aspect2.AfterInvoked.ShouldBeTrue();
+		Aspect3.AfterInvoked.ShouldBeFalse();
 	}
 
 	[Test]
@@ -133,10 +133,10 @@ public class AspectsTest : IContainerSetup
 
 		Target.AspectedMethod();
 
-		Target.Invoked.Should().Be.True();
-		Aspect1.AfterInvoked.Should().Be.True();
-		Aspect2.AfterInvoked.Should().Be.True();
-		Aspect3.AfterInvoked.Should().Be.True();
+		Target.Invoked.ShouldBeTrue();
+		Aspect1.AfterInvoked.ShouldBeTrue();
+		Aspect2.AfterInvoked.ShouldBeTrue();
+		Aspect3.AfterInvoked.ShouldBeTrue();
 	}
 
 	[Test]
@@ -146,7 +146,7 @@ public class AspectsTest : IContainerSetup
 
 		Target.AspectedFunc();
 
-		Aspect1.ReturnValue.Should().Be("hello");
+		Aspect1.ReturnValue.ShouldBe("hello");
 	}
 
 	[Test]
@@ -154,6 +154,6 @@ public class AspectsTest : IContainerSetup
 	{
 		Target.AspectedProtectedCall();
 
-		Target.Invoked.Should().Be.True();
+		Target.Invoked.ShouldBeTrue();
 	}
 }

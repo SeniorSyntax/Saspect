@@ -5,7 +5,7 @@ using Autofac.Builder;
 using NUnit.Framework;
 using Saspect.Autofac;
 using Saspect.Test.Samples;
-using SharpTestsEx;
+using Shouldly;
 using Sinjector;
 
 namespace Saspect.Test;
@@ -37,34 +37,34 @@ public class GeneratorTest : IContainerSetup
 	public void ShouldGenerateProxy()
 	{
 		Container.Resolve<Sample>()
-			.Should().Be.OfType<SampleAspected>();
+			.ShouldBeOfType<SampleAspected>();
 	}
 
 	[Test]
 	public void ShouldManageNestedClass()
 	{
 		Container.Resolve<NestedClassSample.NestedClass>()
-			.Should().Be.OfType<NestedClassSample_NestedClassAspected>();
+			.ShouldBeOfType<NestedClassSample_NestedClassAspected>();
 	}
 
 	[Test]
 	public void ShouldNotGenerateProxyForNonAspected()
 	{
 		Container.Resolve<NonAspectedSample>()
-			.Should().Be.OfType<NonAspectedSample>();
+			.ShouldBeOfType<NonAspectedSample>();
 	}
 	
 	[Test]
 	public void ShouldGenerateCtor()
 	{
 		Container.Resolve<CtorSample>()
-			.Should().Be.OfType<CtorSampleAspected>();
+			.ShouldBeOfType<CtorSampleAspected>();
 	}
 
 	[Test]
 	public void ShouldGeneratePrimaryCtor()
 	{
 		Container.Resolve<PrimaryCtorSample>()
-			.Should().Be.OfType<PrimaryCtorSampleAspected>();
+			.ShouldBeOfType<PrimaryCtorSampleAspected>();
 	}
 }
